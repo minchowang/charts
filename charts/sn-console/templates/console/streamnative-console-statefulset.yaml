@@ -195,7 +195,7 @@ spec:
           {{- end }}
           {{- if .Values.configData.FLINK_SQL_ENABLED }}
           - name: FLINK_SQL_ENABLED
-            value: {{ .Values.configData.FLINK_SQL_ENABLED }}
+            value: "true"
           {{- end }}
           envFrom:
           {{- end }}
