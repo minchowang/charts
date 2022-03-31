@@ -193,6 +193,10 @@ spec:
           - name: USERNAME_CLAIM
             value: {{ .Values.configData.USERNAME_CLAIM }}
           {{- end }}
+          {{- if .Values.configData.FLINK_SQL_ENABLED }}
+          - name: FLINK_SQL_ENABLED
+            value: {{ .Values.configData.FLINK_SQL_ENABLED }}
+          {{- end }}
           envFrom:
           {{- end }}
           {{- if .Values.login.vault.enabled }}
