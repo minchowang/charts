@@ -40,7 +40,7 @@ spec:
     - name: frontend
       port: {{ .Values.service.ports.frontend }}
       protocol: TCP
-      targetPort: {{ .Values.ports.frontend }}
+      targetPort: 9527
   selector:
     app: {{ template "sn_console.name" . }}
     release: {{ .Release.Name }}
