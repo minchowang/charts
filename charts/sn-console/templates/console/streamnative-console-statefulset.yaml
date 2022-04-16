@@ -142,6 +142,8 @@ spec:
           - name: REDIRECT_PORT
             value: "{{ .Values.configData.REDIRECT_PORT }}"
           {{- end }}
+          - name: PULSAR_METADATA_SYNC_NON_PERSISTENT_TOPIC
+            value: "{{ default "true" .Values.streamnative_console.configData.PULSAR_METADATA_SYNC_NON_PERSISTENT_TOPIC }}"
           envFrom:
           - secretRef:
               name: {{ template "streamnative_console.vault-secret-key-name" . }}
