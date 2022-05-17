@@ -880,9 +880,9 @@ bookkeeper:
   jvm:
     memoryOptions:
     - >
-      -Xms6000m
+      -Xms1024m
       -Xmx6000m
-      -XX:MaxDirectMemorySize=256m
+      -XX:MaxDirectMemorySize=2048m
     gcOptions:
     - >
       -XX:+UseG1GC
