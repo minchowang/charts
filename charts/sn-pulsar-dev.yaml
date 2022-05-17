@@ -148,7 +148,7 @@ streamnative_console:
     #persistence: true
     data:
       name: data
-      size: 10Gi
+      size: 20Gi
       storageClassName: pulsar
   configData:
     DEFAULT_ORGANIZATION: streamnative
@@ -164,7 +164,7 @@ prometheus:
   volumes:
     data:
       name: data
-      size: 10Gi
+      size: 20Gi
       storageClassName: pulsar
 grafana:
   resources:
@@ -178,7 +178,7 @@ grafana:
   volumes:
     data:
       name: data
-      size: 5Gi
+      size: 20Gi
       storageClassName: pulsar
 alert_manager:
   resources:
@@ -403,7 +403,7 @@ vault:
   volume:
     persistence: true
     name: "raft"
-    size: 10Gi
+    size: 20Gi
     local_storage: false
     # set your own storage class name or use the default storage class
     storageClassName: "pulsar"

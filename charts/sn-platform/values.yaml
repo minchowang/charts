@@ -28,8 +28,8 @@ initialize: false
 # NOTE: Make the default namespace as empty. So it will fallback to use the namespace used for installing the helm
 #       chart. Helm does not position it self as a namespace manager, as namespaces in kubernetes are considered as
 #       a higher control structure that is not part of the application.
-namespace: ""
-namespaceCreate: false
+namespace: "poc-pulsar"
+namespaceCreate: true
 
 ###
 ### Global Settings
@@ -463,7 +463,7 @@ ingress:
   ##
   ## Ingresses for exposing pulsar service publicly
   proxy:
-    enabled: false
+    enabled: true
     httpPortOverride: ""
     ## When these conditions are satisfied
     ##   1. Values.ingress.proxy.type == LoadBalancer
@@ -480,7 +480,7 @@ ingress:
   ##
   ## Ingresses for exposing pulsar service publicly
   broker:
-    enabled: false
+    enabled: true
     type: LoadBalancer
     annotations: {}
     extraSpec: {}
@@ -503,7 +503,7 @@ ingress:
   ##
   ## Ingresses for exposing monitoring/management services publicly
   controller:
-    enabled: false
+    enabled: true
     rbac: true
     component: nginx-ingress-controller
     replicaCount: 1
@@ -608,8 +608,8 @@ zookeeper:
   gracePeriod: 30
   resources:
     requests:
-      memory: "256Mi"
-      cpu: "0.1"
+      memory: "4Gi"
+      cpu: "2"
     # limits:
     #   memory: "1Gi"
     #   cpu: "0.4"
@@ -644,7 +644,7 @@ zookeeper:
       #     iopsPerGB: "50"
     dataLog:
       name: datalog
-      size: 10Gi
+      size: 20Gi
       local_storage: true
       # storageClassName: ""
       ## If the storage class is left undefined when using persistence
@@ -678,7 +678,7 @@ zookeeper:
   jvm:
     memoryOptions:
     - >
-      -Xms64m -Xmx128m
+      -Xms2048m -Xmx2048m
     gcOptions:
     - >
       -XX:+UseG1GC
@@ -787,9 +787,9 @@ bookkeeper:
   # The replicaCount must be equal or greater than 3, the BookKeeper Operator  will set it to 3 if it is less than 3
   # The minimum number of bookies is three for self-verifying according to the docs
   # https://bookkeeper.apache.org/archives/docs/master/bookkeeperConfig.html
-  replicaCount: 3
+  replicaCount: 11
   autoscaling:
-    maxReplicas: 4
+    maxReplicas: 13
   ports:
     http: 8000
     bookie: 3181
@@ -807,8 +807,8 @@ bookkeeper:
   gracePeriod: 30
   resources:
     requests:
-      memory: "512Mi"
-      cpu: "0.2"
+      memory: "8Gi"
+      cpu: "4"
     # limits:
     #   memory: "2Gi"
     #   cpu: "0.8"
@@ -838,7 +838,7 @@ bookkeeper:
       numVolumes: 1
       numDirsPerVolume: 1
       name: journal
-      size: 10Gi
+      size: 20Gi
       local_storage: true
       # storageClassName: ""
       ## If the storage class is left undefined when using persistence
@@ -857,7 +857,7 @@ bookkeeper:
       #     iopsPerGB: "50"
     ledgers:
       name: ledgers
-      size: 50Gi
+      size: 256Gi
       local_storage: true
       # It determines the directory of ledgers data
       numVolumes: 1
@@ -880,8 +880,8 @@ bookkeeper:
   jvm:
     memoryOptions:
     - >
-      -Xms128m
-      -Xmx256m
+      -Xms6000m
+      -Xmx6000m
       -XX:MaxDirectMemorySize=256m
     gcOptions:
     - >
@@ -1005,9 +1005,9 @@ broker:
   # use a component name that matches your grafana configuration
   # so the metrics are correctly rendered in grafana dashboard
   component: broker
-  replicaCount: 1
+  replicaCount: 5
   autoscaling:
-    maxReplicas: 3
+    maxReplicas: 7
   ports:
     http: 8080
     https: 8443
@@ -1060,8 +1060,8 @@ broker:
     enabled: true
   resources:
     requests:
-      memory: "512Mi"
-      cpu: "0.2"
+      memory: "8Gi"
+      cpu: "8"
     # limits:
     #   memory: "2Gi"
     #   cpu: "0.8"
@@ -1090,7 +1090,7 @@ broker:
   jvm:
     memoryOptions:
       - >
-        -Xms128m -Xmx256m -XX:MaxDirectMemorySize=256m
+        -Xms6000m -Xmx6000m -XX:MaxDirectMemorySize=512m
     gcOptions:
       - >
         -XX:+UseG1GC
@@ -1584,7 +1584,7 @@ prometheus:
     persistence: true
     data:
       name: data
-      size: 10Gi
+      size: 20Gi
       local_storage: true
       # storageClassName: ""
       ## If the storage class is left undefined when using persistence
@@ -1730,7 +1730,7 @@ grafana:
     mountPath: /var/lib/grafana/pulsar
     data:
       name: data
-      size: 10Gi
+      size: 20Gi
       local_storage: true
       # storageClassName: ""
       ## If the storage class is left undefined when using persistence
@@ -1860,7 +1860,7 @@ streamnative_console:
     persistence: true
     data:
       name: data
-      size: 10Gi
+      size: 20Gi
       # local_storage: true
       # storageClassName: ""
       ## If the storage class is left undefined when using persistence
@@ -2145,7 +2145,7 @@ vault:
   volume:
     persistence: true
     name: "vault-volume"
-    size: 10Gi
+    size: 20Gi
     local_storage: true
     # storageClassName: ""
 
