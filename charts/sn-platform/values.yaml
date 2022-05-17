@@ -787,9 +787,9 @@ bookkeeper:
   # The replicaCount must be equal or greater than 3, the BookKeeper Operator  will set it to 3 if it is less than 3
   # The minimum number of bookies is three for self-verifying according to the docs
   # https://bookkeeper.apache.org/archives/docs/master/bookkeeperConfig.html
-  replicaCount: 11
+  replicaCount: 20
   autoscaling:
-    maxReplicas: 13
+    maxReplicas: 20
   ports:
     http: 8000
     bookie: 3181
@@ -880,9 +880,9 @@ bookkeeper:
   jvm:
     memoryOptions:
     - >
-      -Xms1024m
-      -Xmx6000m
-      -XX:MaxDirectMemorySize=2048m
+      -Xms2g
+      -Xmx4g
+      -XX:MaxDirectMemorySize=4g
     gcOptions:
     - >
       -XX:+UseG1GC
@@ -1005,9 +1005,9 @@ broker:
   # use a component name that matches your grafana configuration
   # so the metrics are correctly rendered in grafana dashboard
   component: broker
-  replicaCount: 5
+  replicaCount: 10
   autoscaling:
-    maxReplicas: 7
+    maxReplicas: 10
   ports:
     http: 8080
     https: 8443
